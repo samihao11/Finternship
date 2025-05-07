@@ -12,6 +12,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 // FileInfo represents a file in the repository
@@ -69,6 +70,11 @@ type TodoResponse struct {
 }
 
 func main() {
+	// Load the .env file
+	if err := godotenv.Load(); err != nil {
+		fmt.Printf("Warning: Error loading .env file: %v\n", err)
+	}
+
 	router := gin.Default()
 	router.Use(cors.Default())
 
@@ -86,7 +92,7 @@ func makeGitHubRequest(url string) (*http.Response, error) {
 	}
 
 	// Add GitHub token if available
-	if token := os.Getenv("GITHUB_TOKEN"); token != "" {
+	if token := os.Getenv("GITHUB_ACCESS_TOKEN"); token != "" {
 		req.Header.Add("Authorization", "token "+token)
 	}
 

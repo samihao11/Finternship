@@ -10,22 +10,6 @@ Finternship is your AI-powered coding companion designed for students who want t
 - 📈 **Continuous Learning**: Receive actionable tasks that teach you best practices
 - 🤖 **AI Guidance**: Get suggestions from an AI trained on millions of repositories
 
-## Features
-
-- 🔍 **Smart Project Analysis**: Upload any GitHub repository and get instant insights
-- ✅ **Daily Todo Generator**: Get 5 actionable tasks each day to improve your code
-- 📚 **Code Viewer**: Browse your project files with beautiful syntax highlighting
-- 💡 **Best Practices**: Learn industry standards and coding patterns
-- 📝 **Progress Tracking**: Mark completed tasks and see your project evolve
-
-## How It Helps Students
-
-1. **Project Enhancement**: Turn basic projects into professional-quality work
-2. **Learning Opportunities**: Each suggestion teaches you something new
-3. **Interview Preparation**: Build stronger projects to showcase in interviews
-4. **Skill Development**: Learn best practices and industry standards
-5. **Time Management**: Focus on high-impact improvements with daily todo lists
-
 ## Prerequisites
 
 - Go 1.16 or higher
@@ -41,18 +25,30 @@ Finternship is your AI-powered coding companion designed for students who want t
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/yourusername/Finternship.git
 cd Finternship
 ```
 
-2. Set up environment variables:
+2. Create a `.env` file in the root directory:
 
 ```bash
-export GITHUB_TOKEN=your_github_token_here
-export OPENAI_API_KEY=your_openai_api_key_here
+# Create .env file
+touch .env
+
+# Add your API keys to the .env file
+echo "GITHUB_ACCESS_TOKEN=your_github_token_here
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_API_BASE_URL=https://api.openai.com/v1
+GITHUB_API_BASE_URL=https://api.github.com" > .env
 ```
 
-3. Run the Go backend:
+3. Install Go dependencies:
+
+```bash
+go mod tidy
+```
+
+4. Run the Go backend:
 
 ```bash
 go run main.go
@@ -107,6 +103,7 @@ The frontend will be available at `http://localhost:3000`
 - Gin Web Framework
 - GitHub API
 - OpenAI API
+- godotenv (for environment variables)
 
 ### Frontend
 
@@ -121,19 +118,40 @@ The frontend will be available at `http://localhost:3000`
 
 1. Go to GitHub.com → Settings → Developer Settings → Personal Access Tokens → Tokens (classic)
 2. Generate a new token with `repo` scope
-3. Set as `GITHUB_TOKEN` environment variable
+3. Add as `GITHUB_ACCESS_TOKEN` in your `.env` file
 
 ### OpenAI API Key
 
 1. Visit https://platform.openai.com/api-keys
 2. Create a new API key
-3. Set as `OPENAI_API_KEY` environment variable
+3. Add as `OPENAI_API_KEY` in your `.env` file
+
+## Environment Variables
+
+The project uses the following environment variables in the `.env` file:
+
+```bash
+GITHUB_ACCESS_TOKEN=your_github_token_here
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_API_BASE_URL=https://api.openai.com/v1
+GITHUB_API_BASE_URL=https://api.github.com
+```
 
 ## Security Notes
 
-- Never commit API keys to version control
-- Use environment variables for sensitive data
+- Never commit your `.env` file to version control (it's already in `.gitignore`)
+- Keep your API keys secure and never share them
 - Keep your dependencies updated
+- Use environment variables for all sensitive data
+
+## Troubleshooting
+
+Common issues and solutions:
+
+1. **"Error loading .env file"**: Make sure you've created the `.env` file in the root directory with the correct variables
+2. **"OpenAI API key not configured"**: Check that your OpenAI API key is correctly set in the `.env` file
+3. **"Failed to fetch repository"**: Verify your GitHub access token is valid and has the correct permissions
+4. **"node_modules not found"**: Run `npm install` in the frontend directory
 
 ## Support
 
